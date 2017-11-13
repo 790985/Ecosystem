@@ -5,8 +5,8 @@ this.clr = clr;
 this.obj = obj;
 this.r = r;
 this.radiusVector = new JSVector(0,80);
-this.currentAngle = 0;
-this.currentAngleV = 0.1;
+this.currentAngle = Math.random() * Math.PI*2;
+this.currentAngleV = Math.random()/10;
 }
 Orbiter.prototype.update = function(){
     this.currentAngle = this.currentAngle + this.currentAngleV;

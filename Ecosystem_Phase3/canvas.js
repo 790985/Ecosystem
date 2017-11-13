@@ -4,6 +4,7 @@ var ctx;
 var snakelist = [];
 var orbiterlist = [];
 var moverlist = [];
+var foodlist = [];
 function init(){
   canvas = document.getElementById('cnv')
   canvas.width = window.innerWidth;

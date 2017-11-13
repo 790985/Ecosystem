@@ -12,7 +12,7 @@ function Snake(clr,segNum,orb){
   this.seg = segNum;
   this.orb = orb;
   this.r = 10;
-  this.segLen = 5;
+  this.segLen = 50;
   this.seglist = []
   for(let i = 0; i < this.seg; i++){
     this.seglist[i] = new JSVector(0,0);
