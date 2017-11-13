@@ -1,0 +1,2 @@
+The squares are repellers and Attractors and repell and attract the movers.
+the movers are either pulled or pushed by the squares and increase or decrease in speed.

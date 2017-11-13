@@ -1,0 +1,3 @@
+Excercize #1
+My balls move around the screen and bounce of in the opposite direction.
+You can't manipulate the balls motion by only acceleration as acceleration is added to the velocity.
