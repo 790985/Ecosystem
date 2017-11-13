@@ -1,9 +1,9 @@
 window.onload = init;
 var canvas;
 var ctx;
-var mover;
-var orbiter;
-var snake;
+var snakelist = [];
+var orbiterlist = [];
+var moverlist = [];
 function init(){
   canvas = document.getElementById('cnv')
   canvas.width = window.innerWidth;
@@ -19,13 +19,15 @@ function init(){
 function animate(){
   requestAnimationFrame(animate);
   ctx.clearRect(0,0,canvas.width, canvas.height);
-    mover.update();
-    orbiter.update();
-    snake.update();
-    console.log(snake, "2");
+  for(var i = 0; i < 100; i++){
+    moverlist[i].update();
+    orbiterlist[i].update();
+    snakelist[i].update();
+  }
 }
 
 function loadMovers(){
+  for(var i = 0; i < 100; i++){
         var radius = Math.random() * 30 + 15;
         var x = Math.random() * (window.innerWidth - radius*2) + radius;
         var y = Math.random() * (window.innerHeight - radius*2) + radius;
@@ -35,9 +37,9 @@ function loadMovers(){
         var loc = new JSVector(x, y);
         var vel = new JSVector(dx, dy);
         var acc = new JSVector(0,0);
-        ctx.strokeStyle = randomColor();
+        ctx.strokeStyle = "rgba(0,0,0,0)";
         ctx.fillStyle = randomColor();
-        mover = new Mover(loc, vel, acc, radius, randomColor());
+        moverlist[i] = new Mover(loc, vel, acc, radius, "rgba(0,0,0,0)");
         var x = Math.random() * (window.innerWidth - radius*2) + radius;
         var y = Math.random() * (window.innerHeight - radius*2) + radius;
         var dx = Math.random() * 10 + 1;
@@ -45,9 +47,9 @@ function loadMovers(){
 
         var loc = new JSVector(x, y);
         var vel = new JSVector(dx, dy);
-        orbiter = new Orbiter(loc, vel, randomColor(),mover, 20);
-        snake = new Snake(randomColor(),5,orbiter);
-        console.log(snake);
+        orbiterlist[i] = new Orbiter(loc, vel, randomColor(),moverlist[i], 20);
+        snakelist[i] = new Snake(randomColor(),5,orbiterlist[i]);
+      }
 }
 
 function randomColor(){

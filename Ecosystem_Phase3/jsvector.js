@@ -20,8 +20,8 @@ JSVector.addGetNew = function(vec1, vec2){
 	return new JSVector(x, y);
 }
 JSVector.subGetNew = function(vec1, vec2){
-	var x = vec2.x - vec1.x;
-  var y = vec2.y - vec1.y;
+	var x = vec1.x - vec2.x;
+  var y = vec1.y - vec2.y;
 	return new JSVector(x, y);
 }
 JSVector.prototype.sub = function(vec){
