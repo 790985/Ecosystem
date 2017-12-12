@@ -16,11 +16,7 @@ Attractor.prototype.update = function(){
   }
   for(i = 0; i > movers.length; i++){
   if(this.loc.x  + 50 >= movers[i].loc.x || this.loc.y  + 50 >= movers[i].loc.y){
-   var force = this.loc.subGetNew(movers[i].loc);
-    var dist = force.getMag();
-    force.normalize();
-    force.mult(20/dist*dist);
-    movers[i].acc = force;
+    movers[i].vel = new JSVector(movers[i].vel.x * -1,movers[i].vel.y * -1)
   }
 }
   this.render();
