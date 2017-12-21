@@ -1,0 +1,3 @@
+I have an orbiter moving around a mover being followed by other segments that form to create a snake.
+The snake has a slithering movement. It impliments occilation by using angular velocity to make an orb orbit around a mover.
+The mover bounces off of the walls and constantly has the orbiter moving
