@@ -1,13 +1,12 @@
-'use strict'
-function obj(loc){
+function obj(loc,clr){
   this.loc = loc;
 }
-this.update = function(){
-  this.loc = loc;
+obj.prototype.update = function(){
+  this.render();
 }
-this.render = function(){
-  ctx.save();
-  ctx.arc(this.loc.x,this.loc.y,5,Math.PI*2,0,false);
+obj.prototype.render = function(){
+  ctx.beginPath();
+  ctx.arc(this.loc.x,this.loc.y,40,Math.PI*2,0,false);
   ctx.fill();
   ctx.stroke();
 }

@@ -11,8 +11,7 @@ var colorArray = [
   'rgba(216, 28, 241, .3)', 'rgba(241, 28, 103, .3)', 'rgba(155, 7, 14, .3)'
 ];
 var balls = [];
-var mouseX, mouseY;
-var mouseObj;
+var player;
 
 function init(){
   //get the canvas
@@ -21,32 +20,38 @@ function init(){
   canvas.height = window.innerHeight;
   canvas.style.border = 'solid black 2px';
   canvas.style.backgroundColor = 'rgba(100,20,200)';
-  canvas.addEventListener('mousemove', function(){
-    mouseX = event.offsetX;     // Get the mouse coordinate
-    mouseY = event.offsetY;
-
+  canvas.addEventListener('keydown', function(e){
+    if(e.keyCode == 87){
+      player.dir = 2;//up
+    }else if(e.keyCode == 83){
+      player.dir = -2; //down
+    }else if(e.keyCode == 65){
+      player.dir = -1; //left
+    }else if(e.keyCode == 68){
+      player.dir = 1; //right
+    }
   }
   , false);
+  makeBalls(30);
+  player = new Vehicle(new JSVector(window.innerWidth/2,window.innerHeight/2));
   // get the context
   ctx = canvas.getContext('2d'); // This is the context
-  mouseObj = new Vehicle(0, new JSVector(window.innerWidth/2, window.innerHeight/2));
   animate();
 }
 
 function animate(){
   requestAnimationFrame(animate);
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  mouseObj.seekCoordinates(new JSVector(mouseX,mouseX));
-  mouseObj.update();
+  ctx.translate(window.innerWidth/2-player.loc.x, window.innerHeight/2-player.loc.y);
+  player.update();
   for(var i = 0; i < balls.length; i++){
     balls[i].update();
   }
-  ctx.translate(window.innerWidth-mouseX, window.innerHeight-mouseY)
 }
 
 function makeBalls(num){
 
   for(var i = 0; i < num; i++){
-    balls.push(new JSVector(((Math.random()*50)-20),((Math.random()*100)- 20)));
+    balls.push(new obj(new JSVector(((Math.random()*500)-200),((Math.random()*500)- 200))));
   }
 }

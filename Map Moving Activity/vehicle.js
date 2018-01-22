@@ -1,59 +1,36 @@
 'use strict'
-
-function Vehicle(id, loc){
-  this.id = id;
+document.addEventListener('keypress',keyPressed, false);
+var dir; //1 = up: 2 = left: 3 = down: 4 = right
+function Vehicle(loc){
   this.loc = loc;
-  this.vel = new JSVector(Math.random()*3-1.5, Math.random()*3-1.5);
-  this.acc = new JSVector(0, 0);
-  this.angle = 0;
-
+}
   // Method to update position
-  this.update = function(){
-	   this.loc.x = mouseX;
-	   this.loc.y = mouseY;
-    this.vel.add(this.acc);
-    this.loc.add(this.vel);
-  this.checkEdges();
+  Vehicle.prototype.update = function(){
   this.render();
   }
-// Method to display
-  this.render = function() {
-    if(this.id >= 0){
-      ctx.strokeStyle = "rgba(2, 2, 2, 1)";
-      ctx.fillStyle = "rgba(0, 255, 0, .75)";
-    }else{
-      ctx.strokeStyle = "rgba(255, 0, 0, 1)";
-      ctx.fillStyle = "rgba(255, 0, 0, .75)";
+  function keyPressed(event){
+    if(event.keyCode == 87){
+      ctx.translate(0,10);
+      this.loc.y -= 10;
+    }else if(event.keyCode == 65){
+      ctx.translate(-10,0);
+      this.loc.x += 10;
+    }else if(event.keyCode == 83){
+      ctx.translate(0,-10);
+      this.loc.y += 10;
+    }else if(event.keyCode == 68){
+      ctx.translate(10,0);
+      this.loc.y -= 10;
     }
-    ctx.save();
+  }
+// Method to display
+  Vehicle.prototype.render = function() {
+    ctx.strokeStyle = "rgb(117, 177, 118)";
+    ctx.fillStyle = "rgba(255, 0, 0, .75)";
     ctx.translate(this.loc.x, this.loc.y);
-    this.angle = this.vel.getDirection()+Math.PI/2;
-    ctx.rotate(this.angle);
     ctx.beginPath();
-    ctx.moveTo(-6, 12);
-    ctx.lineTo(6, 12);
-    ctx.lineTo(0, -12);
-    ctx.closePath();
+    ctx.arc(this.loc.x,this.loc.y, 10,Math.PI*2,0,false);
     ctx.fill();
     ctx.stroke();
-    ctx.restore();
 
   }
-
-  this.checkEdges = function(){
-    if(this.loc.x < 0) this.loc.x  = window.innerWidth;
-    if(this.loc.x > window.innerWidth) this.loc.x  = 0;
-    if(this.loc.y < 0) this.loc.y  = window.innerHeight;
-    if(this.loc.y > window.innerHeight) this.loc.y  = 0;
-  }
-  this.applyForce = function(force){
-    this.vel.add(force);
-  }
-  this.seekCoordinates = function(target){
-  var desired = JSVector.subGetNew(target,this.loc);
-  desired.normalize();
-  desired.mult(4);//implement variable
-  var steer = JSVector.subGetNew(desired,this.vel);
-  this.applyForce(steer);
-}
-}
