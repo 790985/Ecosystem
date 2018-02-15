@@ -15,16 +15,12 @@ function draw() {   // the animation loop
   window.setTimeout(draw, 1000/FRAME_RATE);  // come back here every interval
 }
 function onClick(event){
-  var mouseX = event.clientX;
-  var mouseY = event.clientY;
-  var mX20 = mouseX/20;
-  var mY20 = mouseY/20;
-  for(let i = 0; i < 36; i++){
-    for(let j = 0; j < 32; j++){
-      if(this.grid[i][j].loc.x > mX20 && mX20 > this.grid[i][j].loc.x + 20 && mY20 > this.grid[i][j].loc.y && mY20 < this.grid[i][j].loc.y + 20){
-          this.grid[i][j].type = 1;
-      }
-    }
+  var mx = Math.floor(event.offsetX/game.colWidth);
+  var my = Math.floor(event.offsetY/game.colWidth);
+
+  if(Math.abs(game.grid[mx][my].occupied) == 1){
+    game.grid[mx][my].occupied = -game.grid[mx][my].occupied;
+    game.changed = true;
   }
  }
 
@@ -32,6 +28,7 @@ function onClick(event){
 class Game {
   constructor() {   // from setup()
     //  Game elements
+    this.changed = false;
     this.enemies = [];
     this.menuTileDivs = this.createMenuTileDivs();
     this.infoTileDivs = this.loadInfoTileArray();
@@ -42,8 +39,8 @@ class Game {
     this.loadGrid();
     //  create the canvas
     this.canvas =  document.getElementById('gameCanvas');
-    this.canvas.addEventListener("mouseover", handleCanvasMouseOver, false);
     this.canvas.addEventListener('click',onClick ,false);
+    this.canvas.addEventListener("mouseover", handleCanvasMouseOver, false);
     if (!this.canvas || !this.canvas.getContext)
     throw "No valid canvas found!";
     //  create the context
@@ -141,13 +138,15 @@ class Game {
   loadGrid(){
     for(var i = 0; i < this.cols; i++){     // columns of rows
       this.grid[i] = [];
-      for(var j = 0; j < this.rows; j++){
-        this.grid[i][j] = new Cell(this, new JSVector((i*this.colWidth), (j*this.colWidth)));
+      for(var j = 0; j < this.rows; j++){ // start at 0
+        this.grid[i][j] = new Cell(this, new JSVector((i*this.colWidth), (j*this.colWidth)),1);
         //make 10% of the cells occupied
         if(this.grid[i][j] != this.root && Math.floor(Math.random()*100) < 10 )
-          this.grid[i][j].occupied = true;
+          this.grid[i][j].occupied = -1;
       }
     }
+    this.grid[0][0] = new Cell(this, new JSVector(0, 0), 2);
+    this.grid[this.rows-1][this.cols-1] = new Cell(this, new JSVector((this.rows-1)*this.colWidth,(this.cols-1)*this.colWidth), 3);
 
 
   }  // ++++++++++++++++++++++++++++++++++++++++++++++  End LoadGrid
@@ -162,7 +161,7 @@ class Game {
   }
 
   createTower(tower){
-    this.towers.push(tower);
+    //this.towers.push(tower);
     game.currentTower = tower.id;
     console.log("CurrentTower:  " + tower.id);
   }
@@ -184,4 +183,9 @@ function handleTileMouseOut(){
 }
 //  +++++++++++++++++++++++++++++++++++  Canvas Events
 function handleCanvasMouseOver(){
+}
+function pathFind(goal){
+  var currentPath = [];
+
+
 }
