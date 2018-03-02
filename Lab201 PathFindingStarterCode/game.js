@@ -145,9 +145,10 @@ class Game {
           this.grid[i][j].occupied = -1;
       }
     }
-    this.grid[0][0] = new Cell(this, new JSVector(0, 0), 2);
-    this.grid[this.rows-1][this.cols-1] = new Cell(this, new JSVector((this.rows-1)*this.colWidth,(this.cols-1)*this.colWidth), 3);
-
+    //this.grid[0][0] = new Cell(this, new JSVector(0, 0), 2,0,0);
+     this.root = this.grid[0][0];
+    //this.grid[this.rows-1][this.cols-1] = new Cell(this, new JSVector((this.rows-1)*this.colWidth,(this.cols-1)*this.colWidth), 3,this.rows-1,this.cols-1);
+     this.goal = this.grid[this.cols-1][this.rows-1]
 
   }  // ++++++++++++++++++++++++++++++++++++++++++++++  End LoadGrid
   drawGrid(){
