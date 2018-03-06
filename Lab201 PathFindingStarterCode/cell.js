@@ -15,6 +15,7 @@ class Cell {
   }
   render(){
     //  draw a rectangle at location
+    this.addNeighbors();
     if(this.occupied == -1){
       this.game.context.fillStyle="blue";
     }if(this.occupied == 1){
