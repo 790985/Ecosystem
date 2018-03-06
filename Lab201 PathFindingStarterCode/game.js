@@ -157,7 +157,7 @@ class Game {
       for(var j = 0; j < this.rows; j++){
         this.grid[i][j].render();
         for(var k = 0; k < this.grid[i][j].neighbors.length; k++){
-          this.grid[i][j].neighbors[k];
+          this.grid[i][j].neighbors[k].number += 1;
         }
       }
     }
