@@ -25,6 +25,7 @@ class Cell {
       this.game.context.fillStyle="green";
     }
     this.game.context.strokeStyle="#001122";
+    this.game.context.fillText(this.number.toString(),10,10);
     this.game.context.fillRect(this.loc.x, this.loc.y, this.game.colWidth, this.game.colWidth);
     this.game.context.strokeRect(this.loc.x, this.loc.y, this.game.colWidth, this.game.colWidth);
   }
