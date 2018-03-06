@@ -156,6 +156,9 @@ class Game {
     for(var i = 0; i < this.cols; i++){     // columns of rows
       for(var j = 0; j < this.rows; j++){
         this.grid[i][j].render();
+        for(var k = 0; k < this.grid[i][j].neighbors.length; k++){
+          this.grid[i][j].neighbors[k];
+        }
       }
     }
 
