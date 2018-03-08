@@ -7,6 +7,7 @@ class Cell {
     this.loc = location;
     this.occupied = occupied;
     this.number = 0;
+    this.mark = false;
     this.neighbors = [];
     this.row = row;
     this.col = col;
@@ -26,7 +27,10 @@ class Cell {
       this.game.context.fillStyle="green";
     }
     this.game.context.strokeStyle="#001122";
-    this.game.context.fillText(this.number.toString(),10,10);
+    this.game.context.fillText(this.number.toString(),0,0);
+    this.game.context.fillText(this.number.toString(),50,50);
+    this.game.context.fillText(this.number.toString(),100,100);
+    this.game.context.fillText(this.number.toString(),150,150);
     this.game.context.fillRect(this.loc.x, this.loc.y, this.game.colWidth, this.game.colWidth);
     this.game.context.strokeRect(this.loc.x, this.loc.y, this.game.colWidth, this.game.colWidth);
   }
@@ -36,7 +40,7 @@ class Cell {
             n = this.game.grid[this.row][this.col];
             this.neighbors.push(n);
        }
-       if(this.row < 35 && this.game.grid[this.row][this.col].occupied == 1){  // find north
+       if(this.row < 36 && this.game.grid[this.row][this.col].occupied == 1){  // find north
             s = this.game.grid[this.row][this.col];
             this.neighbors.push(s);
         }

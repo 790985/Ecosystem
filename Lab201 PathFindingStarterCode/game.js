@@ -66,6 +66,7 @@ class Game {
 
   }
   render() {    // draw whatever
+    //this.loadGrid();
     this.drawGrid();
   }
   //++++++++++++++++++++++++++++++++++++++++  constructor calls
@@ -157,7 +158,10 @@ class Game {
       for(var j = 0; j < this.rows; j++){
         this.grid[i][j].render();
         for(var k = 0; k < this.grid[i][j].neighbors.length; k++){
+          if(this.grid[i][j].mark == false){
           this.grid[i][j].neighbors[k].number += 1;
+        }
+
         }
       }
     }
